@@ -374,7 +374,10 @@ var sumSales = merged.reduce(function (total, item) {
 
 
 var netProfit = (parseInt(sumSales) + parseInt(sumPurchases));
-
+console.log("SumSales");
+console.log(sumSales);
+console.log('sumPurchases');
+console.log(sumPurchases);
 console.log( 'The net profit is:', netProfit );
 
 
@@ -412,8 +415,32 @@ console.log( 'The most items sold in a single transaction is:', mostItems );
 /*
   Calculate the sum of the 'purchase' with the fewest items.
 */
+var checkTransaction = transactions.filter(function(transaction){
+  return transaction.type === 'purchase';
+});
 
+var items = checkTransaction.map(function (item) {
+  return item.items.length
+})
+// console.log(items);
+var minNumberInArray = items.reduce(function (minSoFar, currentNumber) {
+  if (currentNumber < minSoFar) {
+    return currentNumber;
+  } else {
+    return minSoFar;
+  }
+});
+// console.log(minNumberInArray);
 
-var sumOfSmallestPurchase;
+var findIndexOfItem = items.indexOf(minNumberInArray);
+
+var purchaseFewestItems = checkTransaction[findIndexOfItem];
+// console.log(purchaseFewestItems);
+var sumOfSmallestPurchase = purchaseFewestItems.items.reduce(function (total, item) {
+  return total + item.price;
+}, 0);
+
+console.log(sumOfSmallestPurchase);
+
 
 console.log( 'The sum of the smallest purchase is:', sumOfSmallestPurchase );
